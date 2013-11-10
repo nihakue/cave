@@ -1,4 +1,4 @@
-class @App.Sprite extends Phaser.Sprite
+class App.Sprite extends Phaser.Sprite
   constructor: ->
     super
     @game.world.add(@)

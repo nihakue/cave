@@ -1,6 +1,6 @@
-class @App
+class App
   constructor: ->
-    @main = new Main()
+    @states = {}
 
   boot: ->
-    @game = new Phaser.Game(480, 1136, Phaser.AUTO, '', @main)
+    @game = new Phaser.Game(480, 1136, Phaser.AUTO, '', new MainState())
