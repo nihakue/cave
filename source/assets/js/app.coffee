@@ -3,4 +3,4 @@ class @App
     @main = new Main()
 
   boot: ->
-    @game = new Phaser.Game(800, 600, Phaser.AUTO, '', @main)
+    @game = new Phaser.Game(480, 1136, Phaser.AUTO, '', @main)
