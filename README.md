@@ -1,35 +1,19 @@
-### Dependencies 
+### Dependencies
 
-Just [nodejs](http://nodejs.org/)
+* [nodejs](http://nodejs.org/)
 
-### Install 
+### Install
 
-- Download and unzip the latest [https://github.com/tchannel/phaser-coffeescript/archive/master.zip]
-- Clone the repo `git clone https://github.com/tchannel/phaser-coffeescript.git`
+* Clone the repo `git clone https://github.com/kevinthompson/phaser-template.git`
+* Run `npm install`.
 
+### Development
 
-Run `npm install`.
+Once you've cloned and installed the template, you can use
+[Grunt](http://gruntjs.com) to watch and compile files within your development
+environment. Start grunt using the `grunt` command, and the development
+environment will be setup.
 
-This will install Phaser and coffeescript
-
-
-### Compiling Coffee
-
-Coffescript is included as a dependency. In order to compile the coffeescript, simply point the coffee compiler at the src folder. I usually use this:
-
-    ./node_modules/coffee-script/bin/coffee -bo build/ -cw src/
-
-This will set the compiler to watch for changes in **src** and compile them into **build**
-
-
-### Serving it up
-
-Phaser-Coffeescript also includes a simple nodejs script for serving up your project locally.
-
-Simply execute `node server.js` in your project directory.
-
-Once that's running, it should now be possible for you to view your project at `http://localhost:8080/index.html`
-
-**Note**: If you've already got something running on port 8080, the server will not run. In that case, you can pass in a port number for the server to run on:
-
-    node server.js 8085
+While youre development server is running, any coffeescript, stylus, or jade
+files created in the `source` folder will be automatically compiled, and your
+browser window will automatically refresh.
