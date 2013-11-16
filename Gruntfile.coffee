@@ -19,7 +19,7 @@ module.exports = (grunt) ->
       css:
         src: [ 'build/assets/css/application.css' ]
       scripts:
-        src: [ 'build/**/*.js', '!build/assets/js/application.js', '!build/assets/js/phaser*' ]
+        src: [ 'build/**/*.js', '!build/assets/js/application.js', '!build/assets/js/phaser.*' ]
       js:
         src: [ 'build/assets/js/application.js' ]
 
@@ -27,15 +27,14 @@ module.exports = (grunt) ->
       build:
         options:
           bare: true
+          join: true
         expand: true
-        cwd: 'source'
-        src: [ '**/*.coffee' ]
-        dest: 'build',
-        ext: '.js'
+        files:
+          'build/assets/js/app.js': [ 'source/assets/js/app.coffee', 'source/assets/js/app/**/*.coffee' ]
 
     concat:
       build:
-        src: [ 'build/**/*.js' ]
+        src: [ 'build/**/*.js', '!build/assets/js/phaser.*' ]
         dest: 'build/assets/js/application.js'
 
     copy:
