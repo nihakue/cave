@@ -23,6 +23,7 @@
     "grunt-express": "~1.2.1",
     "grunt-open": "~0.2.2",
     "grunt-contrib-concat": "~0.3.0",
-    "coffee-script": "~1.6.3"
+    "coffee-script": "~1.6.3",
+    "obfuscator": "~0.2.2"
   }
 }

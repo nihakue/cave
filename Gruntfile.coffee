@@ -1,4 +1,27 @@
 module.exports = (grunt) ->
+  'use strict'
+
+  # Load Tasks
+  grunt.loadNpmTasks('grunt-autoprefixer')
+  grunt.loadNpmTasks('grunt-contrib-clean')
+  grunt.loadNpmTasks('grunt-contrib-coffee')
+  grunt.loadNpmTasks('grunt-contrib-concat')
+  grunt.loadNpmTasks('grunt-contrib-copy')
+  grunt.loadNpmTasks('grunt-contrib-cssmin')
+  grunt.loadNpmTasks('grunt-contrib-jade')
+  grunt.loadNpmTasks('grunt-contrib-stylus')
+  grunt.loadNpmTasks('grunt-contrib-uglify')
+  grunt.loadNpmTasks('grunt-contrib-watch')
+  grunt.loadNpmTasks('grunt-express')
+  grunt.loadNpmTasks('grunt-open')
+
+  # Define Tasks
+  grunt.registerTask('stylesheets', ['stylus', 'autoprefixer', 'cssmin', 'clean:stylesheets'])
+  grunt.registerTask('scripts', ['coffee', 'concat', 'clean:scripts'])
+  grunt.registerTask('server', ['express', 'open', 'watch'])
+  grunt.registerTask('build', ['clean:build', 'copy', 'stylesheets', 'scripts', 'jade'])
+  grunt.registerTask('release', ['build', 'uglify', 'clean:release'])
+  grunt.registerTask('default', ['build', 'server'])
 
   # Config
   grunt.config.init
@@ -12,16 +35,17 @@ module.exports = (grunt) ->
         dest: 'build'
 
     clean:
+      all:
+        scripts:
+          src: [ 'build/assets/js/**/*' ]
+        stylesheets:
+          src: [ 'build/assets/css/**/*' ]
       build:
         src: ['build']
-      stylesheets:
-        src: [ 'build/**/*.css', '!build/assets/css/game.css' ]
-      css:
-        src: [ 'build/assets/css/game.css' ]
       scripts:
-        src: [ 'build/**/*.js', '!build/assets/js/game.js', '!build/assets/js/phaser.*' ]
-      js:
-        src: [ 'build/assets/js/game.js' ]
+        src: [ 'build/assets/js/**/*', '!build/assets/js/game.js', '!build/assets/js/phaser.*' ]
+      stylesheets:
+        src: [ 'build/assets/css/**/*', '!build/assets/css/game.css' ]
 
     coffee:
       build:
@@ -101,12 +125,12 @@ module.exports = (grunt) ->
     watch:
       stylesheets:
         files: 'source/**/*.styl'
-        tasks: [ 'clean:css', 'stylesheets' ]
+        tasks: [ 'clean:all:stylesheets', 'stylesheets' ]
         options:
           livereload: true
       scripts:
         files: 'source/**/*.coffee'
-        tasks: [ 'clean:js', 'scripts' ]
+        tasks: [ 'clean:all:scripts', 'scripts' ]
         options:
           livereload: true
       jade:
@@ -117,25 +141,3 @@ module.exports = (grunt) ->
       copy:
         files: [ 'source/**', '!source/**/*.styl', '!source/**/*.coffee', '!source/**/*.jade' ]
         tasks: [ 'copy' ]
-
-  # Load Tasks
-  grunt.loadNpmTasks('grunt-autoprefixer')
-  grunt.loadNpmTasks('grunt-contrib-clean')
-  grunt.loadNpmTasks('grunt-contrib-coffee')
-  grunt.loadNpmTasks('grunt-contrib-concat')
-  grunt.loadNpmTasks('grunt-contrib-copy')
-  grunt.loadNpmTasks('grunt-contrib-cssmin')
-  grunt.loadNpmTasks('grunt-contrib-jade')
-  grunt.loadNpmTasks('grunt-contrib-stylus')
-  grunt.loadNpmTasks('grunt-contrib-uglify')
-  grunt.loadNpmTasks('grunt-contrib-watch')
-  grunt.loadNpmTasks('grunt-express')
-  grunt.loadNpmTasks('grunt-open')
-
-  # Define Tasks
-  grunt.registerTask('stylesheets', ['stylus', 'autoprefixer', 'cssmin', 'clean:stylesheets'])
-  grunt.registerTask('scripts', ['coffee', 'concat', 'clean:scripts'])
-  grunt.registerTask('server', ['express', 'open', 'watch'])
-  grunt.registerTask('dev', ['clean:build', 'copy', 'stylesheets', 'scripts', 'jade'])
-  grunt.registerTask('build', ['dev', 'uglify'])
-  grunt.registerTask('default', ['dev', 'server'])
