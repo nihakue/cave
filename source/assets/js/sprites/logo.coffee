@@ -1,4 +1,4 @@
-class App.Sprite.Logo extends App.Sprite
+class LogoSprite extends Phaser.Sprite
   constructor: ->
     super
     @anchor =

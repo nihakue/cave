@@ -15,13 +15,13 @@ module.exports = (grunt) ->
       build:
         src: ['build']
       stylesheets:
-        src: [ 'build/**/*.css', '!build/assets/css/application.css' ]
+        src: [ 'build/**/*.css', '!build/assets/css/game.css' ]
       css:
-        src: [ 'build/assets/css/application.css' ]
+        src: [ 'build/assets/css/game.css' ]
       scripts:
-        src: [ 'build/**/*.js', '!build/assets/js/application.js', '!build/assets/js/phaser.*' ]
+        src: [ 'build/**/*.js', '!build/assets/js/game.js', '!build/assets/js/phaser.*' ]
       js:
-        src: [ 'build/assets/js/application.js' ]
+        src: [ 'build/assets/js/game.js' ]
 
     coffee:
       build:
@@ -30,12 +30,12 @@ module.exports = (grunt) ->
           join: true
         expand: true
         files:
-          'build/assets/js/app.js': [ 'source/assets/js/app.coffee', 'source/assets/js/app/**/*.coffee' ]
+          'build/assets/js/game.js': [ 'source/assets/js/**/*.coffee' ]
 
     concat:
       build:
         src: [ 'build/**/*.js', '!build/assets/js/phaser.*' ]
-        dest: 'build/assets/js/application.js'
+        dest: 'build/assets/js/game.js'
 
     copy:
       build:
@@ -52,7 +52,7 @@ module.exports = (grunt) ->
     cssmin:
       build:
         files:
-          'build/assets/css/application.css': [ 'build/**/*.css' ]
+          'build/assets/css/game.css': [ 'build/**/*.css' ]
 
     express:
       server:
@@ -96,7 +96,7 @@ module.exports = (grunt) ->
         options:
           mangle: false
         files:
-          'build/assets/js/application.js': [ 'build/**/*.js' ]
+          'build/assets/js/game.js': [ 'build/**/*.js' ]
 
     watch:
       stylesheets:

@@ -1,11 +1,11 @@
-class App.State.Loading extends App.State
+class MainState extends Phaser.State
   constructor: -> super
 
   preload: ->
     @game.load.image('logo', 'assets/images/logo.png')
 
   create: ->
-    @logo = new App.Sprite.Logo(@game, @game.world.centerX, @game.world.centerY, 'logo')
+    @logo = new LogoSprite(@game, @game.world.centerX, @game.world.centerY, 'logo')
     @game.world.add(@logo)
 
     if @game.scaleToFit
