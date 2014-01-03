@@ -14,6 +14,6 @@ Once you've cloned and installed the template, you can use
 environment. Start grunt using the `grunt` command, and the development
 environment will be setup.
 
-While youre development server is running, any coffeescript, stylus, or jade
+While your development server is running, any coffeescript, stylus, or jade
 files created in the `source` folder will be automatically compiled, and your
 browser window will automatically refresh.
