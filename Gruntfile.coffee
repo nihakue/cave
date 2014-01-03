@@ -16,12 +16,12 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-open')
 
   # Define Tasks
-  grunt.registerTask('stylesheets', ['stylus', 'autoprefixer', 'cssmin', 'clean:stylesheets'])
-  grunt.registerTask('scripts', ['coffee', 'concat', 'clean:scripts'])
-  grunt.registerTask('server', ['express', 'open', 'watch'])
+  grunt.registerTask('default', ['build', 'server'])
   grunt.registerTask('build', ['clean:build', 'copy', 'stylesheets', 'scripts', 'jade'])
   grunt.registerTask('release', ['build', 'uglify', 'clean:release'])
-  grunt.registerTask('default', ['build', 'server'])
+  grunt.registerTask('scripts', ['coffee', 'concat', 'clean:scripts'])
+  grunt.registerTask('server', ['express', 'open', 'watch'])
+  grunt.registerTask('stylesheets', ['stylus', 'autoprefixer', 'cssmin', 'clean:stylesheets'])
 
   # Config
   grunt.config.init
