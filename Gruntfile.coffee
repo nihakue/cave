@@ -43,7 +43,7 @@ module.exports = (grunt) ->
       build:
         src: ['build']
       scripts:
-        src: [ 'build/assets/js/**/*', '!build/assets/js/game.js', '!build/assets/js/phaser.*' ]
+        src: [ 'build/assets/js/**/*', '!build/assets/js/game.*', '!build/assets/js/phaser.*' ]
       stylesheets:
         src: [ 'build/assets/css/**/*', '!build/assets/css/game.css' ]
 
@@ -52,6 +52,7 @@ module.exports = (grunt) ->
         options:
           bare: true
           join: true
+          sourceMap: true
         expand: true
         files:
           'build/assets/js/game.js': [ 'source/assets/js/**/*.coffee' ]
