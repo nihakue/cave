@@ -15,12 +15,13 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-express')
   grunt.loadNpmTasks('grunt-open')
   grunt.loadNpmTasks('grunt-exec')
+  grunt.loadNpmTasks('grunt-git')
   grunt.loadTasks('./tasks')
 
   # Define Tasks
   grunt.registerTask('default', ['build', 'server'])
   grunt.registerTask('build', ['clean:build', 'copy', 'stylesheets', 'scripts', 'jade', 'texturepacker'])
-  grunt.registerTask('release', ['build', 'uglify', 'clean:release'])
+  grunt.registerTask('release', ['build', 'uglify', 'upload'])
   grunt.registerTask('scripts', ['coffee', 'concat', 'clean:scripts'])
   grunt.registerTask('server', ['express', 'open', 'watch'])
   grunt.registerTask('stylesheets', ['stylus', 'autoprefixer', 'cssmin', 'clean:stylesheets'])
@@ -131,6 +132,10 @@ module.exports = (grunt) ->
           mangle: false
         files:
           'build/assets/js/game.js': [ 'build/**/*.js' ]
+
+    upload:
+      release:
+        src: 'build'
 
     watch:
       stylesheets:
