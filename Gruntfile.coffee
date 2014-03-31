@@ -48,6 +48,8 @@ module.exports = (grunt) ->
         src: [ 'build/assets/js/**/*', '!build/assets/js/game.*', '!build/assets/js/phaser.*' ]
       stylesheets:
         src: [ 'build/assets/css/**/*', '!build/assets/css/game.css' ]
+      release:
+        src: ['build']
 
     coffee:
       build:
