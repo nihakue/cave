@@ -14,10 +14,12 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.loadNpmTasks('grunt-express')
   grunt.loadNpmTasks('grunt-open')
+  grunt.loadNpmTasks('grunt-exec')
+  grunt.loadTasks('./tasks')
 
   # Define Tasks
   grunt.registerTask('default', ['build', 'server'])
-  grunt.registerTask('build', ['clean:build', 'copy', 'stylesheets', 'scripts', 'jade'])
+  grunt.registerTask('build', ['clean:build', 'copy', 'stylesheets', 'scripts', 'jade', 'texturepacker'])
   grunt.registerTask('release', ['build', 'uglify', 'clean:release'])
   grunt.registerTask('scripts', ['coffee', 'concat', 'clean:scripts'])
   grunt.registerTask('server', ['express', 'open', 'watch'])
@@ -65,7 +67,7 @@ module.exports = (grunt) ->
     copy:
       build:
         cwd: 'source'
-        src: ['**', '!**/*.styl', '!**/*.coffee', '!**/*.jade']
+        src: ['**', '!**/*.styl', '!**/*.coffee', '!**/*.jade', '!assets/animations/**']
         dest: 'build'
         expand: true
       phaser:
@@ -116,6 +118,11 @@ module.exports = (grunt) ->
           ext: '.css'
         }]
 
+    texturepacker:
+      build:
+        src: 'source/assets/animations/*'
+        dest: 'build/assets/atlas'
+
     uglify:
       build:
         options:
@@ -142,3 +149,8 @@ module.exports = (grunt) ->
       copy:
         files: [ 'source/**', '!source/**/*.styl', '!source/**/*.coffee', '!source/**/*.jade' ]
         tasks: [ 'copy' ]
+      atlas:
+        files: 'source/assets/animations/*'
+        tasks: ['texturepacker']
+        options:
+          livereload: true

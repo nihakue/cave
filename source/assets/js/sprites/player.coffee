@@ -9,9 +9,17 @@ class PlayerSprite extends Phaser.Sprite
     @speed = 150
     @jumpStrength = 500
 
-    @animations.add('jump', [0..4], 10, false);
-    @animations.add('idle', [11..18], 5, true);
-    @animations.add('walk', [19..24], 10, true);
+    @animations.add('jump',
+      Phaser.Animation.generateFrameNames('jump', 0, 7, '', 2)
+      5, false)
+
+    @animations.add('idle',
+      Phaser.Animation.generateFrameNames('puffed', 0, 8, '', 2),
+      5, true)
+
+    @animations.add('walk',
+      Phaser.Animation.generateFrameNames('run', 0, 5, '', 2),
+      10, true)
 
   initPhysics: ->
     @body.bounce.y = 0.2

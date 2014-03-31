@@ -5,7 +5,13 @@ class MainState extends Phaser.State
     @game.load.image('sky', 'assets/images/sky.png')
     @game.load.image('ground', 'assets/images/platform.png')
     @game.load.image('star', 'assets/images/star.png')
-    @game.load.spritesheet('guy', 'assets/images/guy.png', 50, 60)
+    # @game.load.spritesheet('guy', 'assets/images/guy.png', 50, 60)
+
+    @game.load.atlasJSONHash(
+      'guy'
+      'assets/atlas/guy.png'
+      'assets/atlas/guy.json'
+      )
 
   create: ->
     @game.physics.startSystem(Phaser.Physics.ARCADE)
@@ -52,6 +58,17 @@ class MainState extends Phaser.State
     #Controls
     @cursors = @game.input.keyboard.createCursorKeys();
 
+    #Debug Info
+    @debugText = @game.add.text(
+      50
+      50
+      ''
+      fontSize:
+        '18px'
+      fill:
+        '#000'
+      )
+
 
     if @game.scaleToFit
       @game.stage.scaleMode = Phaser.StageScaleMode.SHOW_ALL
@@ -64,6 +81,8 @@ class MainState extends Phaser.State
     @game.physics.arcade.overlap(@player, @stars, @collectStar, null, this);
 
     @player.handleControl(@cursors)
+
+    # @debugText.text = @player.body.deltaY()
 
 
   collectStar: (player, star) ->
