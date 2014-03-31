@@ -44,13 +44,11 @@ module.exports = (grunt) ->
         stylesheets:
           src: [ 'build/assets/css/**/*' ]
       build:
-        src: ['build']
+        src: ['build/**/*', '!build/.git']
       scripts:
         src: [ 'build/assets/js/**/*', '!build/assets/js/game.*', '!build/assets/js/phaser.*' ]
       stylesheets:
         src: [ 'build/assets/css/**/*', '!build/assets/css/game.css' ]
-      release:
-        src: ['build']
 
     coffee:
       build:
@@ -70,7 +68,7 @@ module.exports = (grunt) ->
     copy:
       build:
         cwd: 'source'
-        src: ['**', '!**/*.styl', '!**/*.coffee', '!**/*.jade', '!assets/animations/**']
+        src: ['**', '!**/*.styl', '!**/*.coffee', '!**/*.jade', '!assets/animations/**', '!**/.git*']
         dest: 'build'
         expand: true
       phaser:
