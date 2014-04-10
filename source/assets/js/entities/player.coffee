@@ -1,13 +1,10 @@
 class Player
-  constructor: (@game) ->
+  constructor: (game) ->
+    @game = game
     @sprite = null
     @cursors = null
     @speed = 300
     @jumpStrength = 700
-    @hp = 1
-
-    @loopcount = 0
-    @isIdle = true
 
   preload: ->
     @game.load.atlasJSONHash(
@@ -18,8 +15,6 @@ class Player
 
   create: ->
     @sprite = @game.add.sprite(32, game.world.height - 150, 'serge')
-
-    # Load all animations
     @sprite.animations.add('jump',
       Phaser.Animation.generateFrameNames('jump', 0, 7, '', 2)
       5, false)
@@ -31,27 +26,12 @@ class Player
     @sprite.animations.add('walk',
       Phaser.Animation.generateFrameNames('run', 0, 12, '', 2),
       15, true)
-
-    @into_exhausted = @sprite.animations.add('into_exhausted',
-      Phaser.Animation.generateFrameNames('into_exhausted', 0, 3, '', 2),
-      5, false)
-
-    @into_exhausted.onComplete.add(@exhaust, this)
-
-    @exhausted = @sprite.animations.add('exhausted',
-    Phaser.Animation.generateFrameNames('exhausted', 0, 7, '', 2),
-    5, true)
-
-
     @sprite.anchor =
       x: 0.5
       y: 0.5
 
     @initPhysics()
     @cursors = @game.input.keyboard.createCursorKeys()
-    @hurtKey = @game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
-    @hurtKey.onDown.add(@hurt, this)
-    @game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR)
 
   update: ->
     @handleControl()
@@ -85,19 +65,8 @@ class Player
     @sprite.animations.play('walk') if @sprite.body.touching.down
 
   idle: ->
-    if @sprite.body.touching.down
-      if @hp > .5
-        @sprite.animations.play('idle')
-      else 
-        @sprite.animations.play('exhausted')
-
-  exhaust: (sprite, animation) ->
-    @loopcount += 1
-    @sprite.animations.play('exhausted')
+    @sprite.animations.play('idle') if @sprite.body.touching.down
 
   jump: ->
     @sprite.body.velocity.y = -@jumpStrength
     @sprite.animations.play('jump')
-
-  hurt: ->
-    @hp -= .6
