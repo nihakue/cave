@@ -43,6 +43,8 @@ module.exports = (grunt) ->
           src: [ 'build/assets/js/**/*' ]
         stylesheets:
           src: [ 'build/assets/css/**/*' ]
+        atlas:
+          src: [ 'build/atlas/*' ]
       build:
         src: ['build/**/*', '!build/.git']
       scripts:
@@ -151,11 +153,11 @@ module.exports = (grunt) ->
         tasks: [ 'jade' ]
         options:
           livereload: true
-      copy:
-        files: [ 'source/**', '!source/**/*.styl', '!source/**/*.coffee', '!source/**/*.jade' ]
-        tasks: [ 'copy' ]
       atlas:
-        files: 'source/assets/animations/*'
-        tasks: ['texturepacker']
+        files: [ 'source/assets/animations/**/*.png' ]
+        tasks: ['clean:all:atlas', 'texturepacker']
         options:
           livereload: true
+      copy:
+        files: [ 'source/**', '!source/**/*.styl', '!source/**/*.coffee', '!source/**/*.jade', '!source/assets/animations/**/*.png' ]
+        tasks: [ 'copy' ]

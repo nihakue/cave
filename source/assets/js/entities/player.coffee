@@ -9,6 +9,14 @@ class Player extends Mob
   create: ->
     super(32, @game.world.height - 150)
 
+    @initAnimations()
+
+    @cursors = @game.input.keyboard.createCursorKeys()
+    @hurtKey = @game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
+    @hurtKey.onDown.add(@hurt, this)
+    @game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR)
+
+  initAnimations: ->
     # Load all animations
     @sprite.animations.add('jump',
       Phaser.Animation.generateFrameNames('jump', 0, 7, '', 2)
@@ -30,11 +38,6 @@ class Player extends Mob
     Phaser.Animation.generateFrameNames('exhausted', 0, 7, '', 2),
     5, true)
 
-    @cursors = @game.input.keyboard.createCursorKeys()
-    @hurtKey = @game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
-    @hurtKey.onDown.add(@hurt, this)
-    @game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR)
-
   update: ->
     @handleControl()
 
@@ -50,26 +53,11 @@ class Player extends Mob
 
     @jump() if @cursors.up.isDown and @sprite.body.touching.down
 
-  goLeft: ->
-    @sprite.body.velocity.x = -@speed
-    @sprite.scale.setTo(-1, 1)
-    @sprite.animations.play('walk') if @sprite.body.touching.down
-
-  goRight: ->
-    @sprite.body.velocity.x = @speed
-    @sprite.scale.setTo(1, 1)
-    @sprite.animations.play('walk') if @sprite.body.touching.down
-
   idle: ->
-    if @sprite.body.touching.down
-      if @hp > .5
+    if @hp > .5
         @sprite.animations.play('idle')
       else 
         @sprite.animations.play('exhausted')
-
-  jump: ->
-    @sprite.body.velocity.y = -@jumpStrength
-    @sprite.animations.play('jump')
 
   hurt: ->
     @hp -= .6

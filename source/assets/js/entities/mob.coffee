@@ -23,3 +23,21 @@ class Mob
     @sprite.body.bounce.y = 0.2
     @sprite.body.gravity.y = 1500
     @sprite.body.collideWorldBounds = true
+
+  goLeft: ->
+    @sprite.body.velocity.x = -@speed
+    @sprite.scale.setTo(-1, 1)
+    @sprite.animations.play('walk') if @sprite.body.touching.down
+
+  goRight: ->
+    @sprite.body.velocity.x = @speed
+    @sprite.scale.setTo(1, 1)
+    @sprite.animations.play('walk') if @sprite.body.touching.down
+
+  idle: ->
+    if @sprite.body.touching.down
+      @sprite.animations.play('idle')
+
+  jump: ->
+    @sprite.body.velocity.y = -@jumpStrength
+    @sprite.animations.play('jump')

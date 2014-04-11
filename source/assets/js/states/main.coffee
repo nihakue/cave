@@ -2,13 +2,14 @@ class MainState extends Phaser.State
   constructor: -> super
 
   preload: ->
-    @snell = new Snell(@game)
-    @snell.preload()
-
     @player = new Player(@game)
     @player.preload()
 
+    @snell = new Snell(@game, @player)
+    @snell.preload()
+
     @hud = new Hud(@game, @player)
+
 
   create: ->
     @game.physics.startSystem(Phaser.Physics.ARCADE)
@@ -24,6 +25,7 @@ class MainState extends Phaser.State
 
   update: ->
     @game.physics.arcade.collide(@player.sprite, @snell.platforms);
+    @game.physics.arcade.collide(@snell.sqot.sprite, @snell.platforms);
     @game.physics.arcade.overlap(
       @player.sprite,
       @snell.stars,
