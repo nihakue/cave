@@ -1,28 +1,13 @@
-class Player
+class Player extends Mob
   constructor: (game) ->
-    # super(game, 'serge')
-    @game = game
-    @sprite = null
+    super(game, 'serge')
     @cursors = null
     @speed = 300
     @jumpStrength = 700
     @hp = 1
 
-  preload: ->
-    @game.load.atlasJSONHash(
-      'serge'
-      "assets/atlas/serge.png"
-      "assets/atlas/serge.json"
-      )
-
   create: ->
-    # super(32, @game.world.height - 150)
-    @sprite = @game.add.sprite(32, game.world.height - 150, 'serge')
-    @sprite.anchor =
-        x: 0.5
-        y: 0.5
-
-    @initPhysics
+    super(32, @game.world.height - 150)
 
     # Load all animations
     @sprite.animations.add('jump',
@@ -49,12 +34,6 @@ class Player
     @hurtKey = @game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
     @hurtKey.onDown.add(@hurt, this)
     @game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR)
-
-  initPhysics: ->
-    @game.physics.arcade.enable(@sprite)
-    @sprite.body.bounce.y = 0.2
-    @sprite.body.gravity.y = 1500
-    @sprite.body.collideWorldBounds = true
 
   update: ->
     @handleControl()

@@ -16,7 +16,7 @@ class Mob
         x: 0.5
         y: 0.5
 
-    @initPhysics
+    @initPhysics()
 
   initPhysics: ->
     @game.physics.arcade.enable(@sprite)
