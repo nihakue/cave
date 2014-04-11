@@ -1,6 +1,7 @@
 class Player
-  constructor: (@game) ->
+  constructor: (game) ->
     # super(game, 'serge')
+    @game = game
     @sprite = null
     @cursors = null
     @speed = 300
@@ -16,10 +17,12 @@ class Player
 
   create: ->
     # super(32, @game.world.height - 150)
-    @sprite = @game.add.sprite(32, @game.world.height, 'serge')
+    @sprite = @game.add.sprite(32, game.world.height - 150, 'serge')
     @sprite.anchor =
         x: 0.5
         y: 0.5
+
+    @initPhysics
 
     # Load all animations
     @sprite.animations.add('jump',
@@ -46,8 +49,6 @@ class Player
     @hurtKey = @game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
     @hurtKey.onDown.add(@hurt, this)
     @game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR)
-
-    @initPhysics
 
   initPhysics: ->
     @game.physics.arcade.enable(@sprite)
